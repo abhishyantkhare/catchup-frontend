@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './login.js'
-
+import Login from './login.js';
+import Dashboard from './dashboard.js';
+import {Route, Switch} from 'react-router-dom'
 
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <div>
-            <div className="catchup-title">
-              Catchup
-            </div>
-            <div className="description">
-              Some description here
-            </div>
-            <div className="login-container">
-              <Login />
-            </div>
-          </div>
-        </header>
-      </div>
+      <Switch>
+        <Route exact path="/" component={Login}/>
+        <Route path="/dashboard" component={Dashboard}/>
+      </Switch>
     );
   }
 }

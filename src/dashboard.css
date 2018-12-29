@@ -1,0 +1,21 @@
+.catchuplist-container
+{
+  margin-top: 10%;
+  margin-left: 150px;
+  width: 500px;
+}
+
+.dashboard-container
+{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+}
+
+.catchupcreate-container
+{
+  margin-top: 10%;
+  margin-left: 150px;
+  width: 450px;
+}

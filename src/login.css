@@ -1,0 +1,31 @@
+
+.main {
+  text-align: center;
+}
+
+
+.login-header {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.catchup-title {
+  font-size: 50px;
+  color: #3892FC;
+  font-family: 'Lato', sans-serif;
+}
+
+.description {
+  font-size: 20px;
+  color: black;
+  padding-top: 35px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.login-container {
+  padding-top: 35px;
+}

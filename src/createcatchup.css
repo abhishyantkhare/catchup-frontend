@@ -1,0 +1,25 @@
+.invitee-field
+{
+  margin-top: 15px;
+}
+
+.create-button-right
+{
+  width: 100px;
+  height: 35px;
+  background: #045B9A;
+  border-radius: 20px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  margin-left: 0px;
+  cursor: pointer;
+}
+
+.create-text-right
+{
+  font-size: 21px;
+  font-family: 'Lato', sans-serif;
+  color: white;
+  margin-top:2px;
+}

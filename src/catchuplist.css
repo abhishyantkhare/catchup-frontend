@@ -1,0 +1,43 @@
+.list-title
+{
+  font-size: 30px;
+  font-family: 'Open Sans', sans-serif;
+  color: black; 
+  align-self: flex-start;
+}
+
+.divider
+{
+  width: 500px;
+  height: 2px;
+  background: #045B9A;
+  margin-top: 10px;
+}
+
+.create-button
+{
+  width: 100px;
+  height: 35px;
+  background: #045B9A;
+  border-radius: 20px;
+  margin-left: 190px;
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.title-container
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+
+.create-text
+{
+  font-size: 21px;
+  font-family: 'Lato', sans-serif;
+  color: white;
+  margin-top:2px;
+}
