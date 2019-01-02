@@ -12,6 +12,12 @@ const mapStateToProps = state => {
 
 class ConnectedDashboard extends Component
 {
+  constructor (props){
+    super(props)
+    this.setState({
+      showCreate : false
+    })
+  }
   render (){
     console.log(this.props.userEmail);
     return(
