@@ -4,24 +4,12 @@ import "./createcatchup.css"
 import CreateButton from '../buttons/createbutton'
 import AdditionButton from '../buttons/additionbutton'
 
-
+const user_email = "your@email.com";
 class InviteeTextField extends Component {
   constructor (props)
   {
     super(props)
-    this.state = {
-      email: ""
-    }
-  }
-
-  setInviteeEmail = (e) =>{
-    this.setState({
-      email: e.target.value
-    })
-  }
-
-  getInviteeEmail = () => {
-    return this.state.email;
+   
   }
 
   render ()
@@ -30,7 +18,7 @@ class InviteeTextField extends Component {
       <TextField
           label="Invitee Email Address"
           fullWidth={true}
-          onChange={this.setInviteeEmail}
+          onChange={(e) => this.props.onChange(e, this.props.listKey)}
        />  
     )
   }
@@ -43,8 +31,16 @@ class CreateCatchup extends Component
     super(props);
     this.state = {
       catchupTitle: "",
-      inviteeEmails: [
-        <InviteeTextField />,
+      inviteeViews: [
+        {
+          view:  <InviteeTextField
+          onChange={this.setEmail}
+          listKey={0}
+          />,
+          email: "",
+          key: 0
+        }
+
       ]
     };
     
@@ -56,29 +52,66 @@ class CreateCatchup extends Component
     })
   }
 
+  setEmail = (e, listKey) => {
+    var inviteeViewsNew = this.state.inviteeViews;
+    var inviteeView = inviteeViewsNew[listKey];
+    inviteeView.email = e.target.value;
+    inviteeViewsNew[listKey] = inviteeView;
+    this.setState({
+      inviteeViews: inviteeViewsNew
+    })
+  }
+
 
   addInviteeField = () => {
-    var inviteeEmailsNew = this.state.inviteeEmails;
-    inviteeEmailsNew.push(<InviteeTextField />)
+    var inviteeViewsNew = this.state.inviteeViews;
+    inviteeViewsNew.push({view: <InviteeTextField 
+                          onChange={this.setEmail}
+                          listKey={this.state.inviteeViews.length}
+                        />,
+                        email: "",
+                        key: this.state.inviteeViews.length
+                      })
+
     this.setState({
-      inviteeEmails: inviteeEmailsNew
+      inviteeViews: inviteeViewsNew
     })
   }
 
   popInviteeField = () => {
-    var inviteeEmailsNew = this.state.inviteeEmails;
-    inviteeEmailsNew.pop()
+    var inviteeViewsNew = this.state.inviteeViews;
+    inviteeViewsNew.pop()
     this.setState({
-      inviteeEmails: inviteeEmailsNew
+      inviteeViews: inviteeViewsNew
     }) 
   }
 
   showMinus = () => {
-    console.log(this.state.inviteeEmails.length);
-    return this.state.inviteeEmails.length > 1
+    console.log(this.state.inviteeViews.length);
+    return this.state.inviteeViews.length > 1
   }
    
 
+  createCatchup = () => {
+    var inviteeEmails = this.state.inviteeViews.map((inviteeView) => inviteeView.email) 
+    fetch(process.env.REACT_APP_BACKEND_URL + 'create_catchup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        invitedUsers: inviteeEmails,
+        owner: user_email,
+        title: this.state.catchupTitle
+      })
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    }).catch((error) => {
+      console.error(error);
+    });;
+  }
 
 
   render() {
@@ -93,7 +126,7 @@ class CreateCatchup extends Component
           />
         </div>
         <div className="invitee-field">
-          {this.state.inviteeEmails}
+          {this.state.inviteeViews.map((inviteeView) => inviteeView.view)}
         </div>
         <div className="addition-buttons">
           <AdditionButton 
@@ -110,7 +143,9 @@ class CreateCatchup extends Component
           }
         </div>
         <div className="create-button-container-modal">
-          <CreateButton />
+          <CreateButton 
+          onClick={this.createCatchup}
+          />
         </div>
       </div>
     )

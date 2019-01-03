@@ -56,6 +56,7 @@ class CatchupList extends Component
        <CatchupListItem 
       title={catchup.title}
       pending={catchup.invited_users.includes(user_email)}
+      catchup_id={catchup.catchup_id}
       />
       <div className="gray-divider" />
     </div>
@@ -94,6 +95,44 @@ class CatchupListItem extends Component
     super(props);
   }
 
+  acceptCatchup = () => {
+    fetch(process.env.REACT_APP_BACKEND_URL + 'accept_catchup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: user_email,
+        catchup_id: this.props.catchup_id
+      })
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    }).catch((error) => {
+      console.error(error);
+    });;
+  }
+
+  denyCatchup = () => {
+    fetch(process.env.REACT_APP_BACKEND_URL + 'deny_catchup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: user_email,
+        catchup_id: this.props.catchup_id
+      })
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    }).catch((error) => {
+      console.error(error);
+    });;
+  }
+
   render() {
     return(
         <div className="item-container">
@@ -112,12 +151,14 @@ class CatchupListItem extends Component
               <ClearButton 
               color="blue"
               text="Accept"
+              onClick={this.acceptCatchup}
               />
             </div>
             <div className="button-container">
               <ClearButton 
               color="red"
               text="Deny"
+              onClick={this.denyCatchup}
               />
             </div>
           </div> :

@@ -1,23 +1,17 @@
 import React, {Component} from 'react';
 import { GoogleLogin } from 'react-google-login';
 import './login.css'
-import { connect } from "react-redux";
-import { setUserEmail} from "./actions/index"
 import Cookies from 'universal-cookie'
+import {geolocated} from 'react-geolocated';
 
 
-function mapDispatchToProps(dispatch)
-{
-  return {
-    setUserEmail: userEmail => dispatch(setUserEmail(userEmail))
-  }
-}
+
 
 
 
 const cookies = new Cookies();
 
-class ConnectedLogin extends Component {
+class Login extends Component {
 
 
   constructor (props)
@@ -36,6 +30,8 @@ class ConnectedLogin extends Component {
     var profileObj = response['profileObj'];
     var userEmail = profileObj['email'];
     console.log(process.env.REACT_APP_BACKEND_URL + 'new_user')
+    var userLat = this.props.coords.latitude;
+    var userLon = this.props.coords.longitude;
     fetch(process.env.REACT_APP_BACKEND_URL + 'new_user', {
       method: 'POST',
       headers: {
@@ -43,7 +39,8 @@ class ConnectedLogin extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: userEmail
+        email: userEmail,
+        location: [userLat, userLon]
       })
     }).then((response) => response.json())
     .then((responseJson) => {
@@ -53,7 +50,6 @@ class ConnectedLogin extends Component {
     }).catch((error) => {
       console.error(error);
     });;
-    this.props.setUserEmail(userEmail)
   }
 
   render () {
@@ -82,6 +78,10 @@ class ConnectedLogin extends Component {
   }
 }
 
-const Login = connect(null, mapDispatchToProps)(ConnectedLogin);
 
-export default Login;
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(Login);

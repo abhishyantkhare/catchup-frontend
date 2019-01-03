@@ -23,7 +23,9 @@ class ClearButton extends Component
       textClass += "red-text";
     }
     return(
-      <div className={buttonClass}>
+      <div className={buttonClass}
+      onClick={() => this.props.onClick()}
+      >
         <div className={textClass}>
           {this.props.text}
         </div>

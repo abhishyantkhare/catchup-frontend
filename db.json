@@ -1,10 +1,15 @@
 {
   "new_user": {
-    "email": "akhare97@berkeley.edu"
+    "email": "akhare97@berkeley.edu",
+    "location": [
+      37.772854099999996,
+      -122.5004056
+    ]
   },
   "get_catchups": {
     "catchups": [
       {
+        "catchup_id": 1,
         "title": "Catchup #1",
         "catchup_owner": "your@email.com",
         "accepted_users": [
@@ -25,6 +30,7 @@
         "frequency": "once a week"
       },
       {
+        "catchup_id": 2,
         "title": "Catchup #2",
         "catchup_owner": "owner@email.com",
         "accepted_users": [
@@ -47,6 +53,7 @@
         "frequency": "once a week"
       },
       {
+        "catchup_id": 3,
         "title": "Catchup #3",
         "catchup_owner": "owner@email.com",
         "accepted_users": [
@@ -69,5 +76,20 @@
         "frequency": "once a week"
       }
     ]
+  },
+  "accept_catchup": {
+    "email": "your@email.com",
+    "catchup_id": 3
+  },
+  "deny_catchup": {
+    "email": "your@email.com",
+    "catchup_id": 3
+  },
+  "create_catchup": {
+    "invitedUsers": [
+      "test@email.com"
+    ],
+    "owner": "your@email.com",
+    "title": ""
   }
 }
