@@ -3,6 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import './login.css'
 import { connect } from "react-redux";
 import { setUserEmail} from "./actions/index"
+import Cookies from 'universal-cookie'
 
 
 function mapDispatchToProps(dispatch)
@@ -14,9 +15,20 @@ function mapDispatchToProps(dispatch)
 
 
 
-
+const cookies = new Cookies();
 
 class ConnectedLogin extends Component {
+
+
+  constructor (props)
+  {
+    super(props);
+    var user_cookie = cookies.get('user_email')
+    if (user_cookie !== undefined)
+    {
+      this.props.history.push('/dashboard');
+    }
+  }
 
 
   responseGoogle = (response) => {
@@ -33,8 +45,10 @@ class ConnectedLogin extends Component {
       body: JSON.stringify({
         email: userEmail
       })
-    }).then((response) => {
-      console.log(response);
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      cookies.set('user_email', userEmail)
       this.props.history.push('/dashboard');
     }).catch((error) => {
       console.error(error);

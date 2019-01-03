@@ -1,8 +1,8 @@
 .catchuplist-container
 {
   margin-top: 10%;
-  margin-left: 150px;
-  width: 500px;
+  margin-left: 50px;
+  width: 700px;
 }
 
 .dashboard-container
@@ -16,6 +16,6 @@
 .catchupcreate-container
 {
   margin-top: 10%;
-  margin-left: 150px;
+  margin-left: 75px;
   width: 450px;
 }

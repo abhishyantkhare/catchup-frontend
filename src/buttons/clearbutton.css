@@ -1,0 +1,40 @@
+.clear-button
+{
+  background: #FFFFFF;
+  border-radius: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 35px;
+  cursor: pointer;
+
+}
+
+.blue-button
+{
+  border: 0.5px solid #3892FC;
+}
+
+.red-button
+{
+  border: 0.5px solid #E10707;
+}
+
+.clear-text
+{
+  font-size: 25px;
+  font-family: 'Open Sans' sans-serif;
+  align-self: center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.blue-text
+{
+  color: #3892FC;
+}
+
+.red-text
+{
+  color: #E10707; 
+}

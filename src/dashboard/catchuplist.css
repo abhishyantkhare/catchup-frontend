@@ -8,10 +8,10 @@
 
 .divider
 {
-  width: 500px;
   height: 2px;
   background: #045B9A;
   margin-top: 10px;
+  width: 500px;
 }
 
 .create-button-container
@@ -27,3 +27,51 @@
   align-items: center
 }
 
+.item-container
+{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin-top: 20px;
+  width: 700px;
+}
+
+.item-title
+{
+  align-self: center;
+  font-size: 25px;
+  font-family: 'Open Sans' sans-serif;
+  color: black;
+  width: 250px;
+}
+
+.view-button-container
+{
+  margin-left: 170px;
+}
+
+.gray-divider
+{
+  height: 1px ;
+  background:#C8C8C8;
+  margin-top: 15px;
+  width: 500px
+}
+
+.full-item-container
+{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.button-container
+{
+  margin-left: 10px;
+}
+
+.accept-deny-container
+{
+  display: flex;
+  flex-direction: row;
+}

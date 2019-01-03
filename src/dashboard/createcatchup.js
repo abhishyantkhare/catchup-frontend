@@ -64,6 +64,19 @@ class CreateCatchup extends Component
       inviteeEmails: inviteeEmailsNew
     })
   }
+
+  popInviteeField = () => {
+    var inviteeEmailsNew = this.state.inviteeEmails;
+    inviteeEmailsNew.pop()
+    this.setState({
+      inviteeEmails: inviteeEmailsNew
+    }) 
+  }
+
+  showMinus = () => {
+    console.log(this.state.inviteeEmails.length);
+    return this.state.inviteeEmails.length > 1
+  }
    
 
 
@@ -87,6 +100,14 @@ class CreateCatchup extends Component
           onClick={this.addInviteeField}
           buttonType="plus"
           />
+          {this.showMinus() ?
+          <AdditionButton
+          onClick={this.popInviteeField}
+          buttonType="minus"
+          />
+          :
+          null
+          }
         </div>
         <div className="create-button-container-modal">
           <CreateButton />
