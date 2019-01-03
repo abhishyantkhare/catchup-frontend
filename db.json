@@ -5,70 +5,69 @@
   "get_catchups": {
     "catchups": [
       {
-          "title": "Catchup #1",
-          "catchup_owner": "your@email.com",
-          "accepted_users": [
-            "accepted_user@email.com"
+        "title": "Catchup #1",
+        "catchup_owner": "your@email.com",
+        "accepted_users": [
+          "accepted_user@email.com"
+        ],
+        "invited_users": [],
+        "current_event": {
+          "event_name": "Cherry Picking",
+          "event_desc": "Cherry picking is fun!",
+          "event_start_time": "5:00 PM PST",
+          "event_end_time": "7:00 PM PST",
+          "event_location": [
+            1,
+            2
           ],
-          "invited_users": [],
-          "current_event": {
-            "event_name": "Cherry Picking",
-            "event_desc": "Cherry picking is fun!",
-            "event_start_time": "5:00 PM PST",
-            "event_end_time": "7:00 PM PST",
-            "event_location": [
-              1,
-              2
-            ],
-            "event_address": "Cherry Farm, San Francisco, CA 94121"
-          },
-          "frequency": "once a week"
+          "event_address": "Cherry Farm, San Francisco, CA 94121"
         },
-       {
-          "title": "Catchup #2",
-          "catchup_owner": "owner@email.com",
-          "accepted_users": [
-            "your@email.com"
+        "frequency": "once a week"
+      },
+      {
+        "title": "Catchup #2",
+        "catchup_owner": "owner@email.com",
+        "accepted_users": [
+          "your@email.com"
+        ],
+        "invited_users": [
+          "invited_user@email.com"
+        ],
+        "current_event": {
+          "event_name": "Pending Acceptance Event",
+          "event_desc": "NA",
+          "event_start_time": "NA",
+          "event_end_time": "NA",
+          "event_location": [
+            0,
+            0
           ],
-          "invited_users": [
-            "invited_user@email.com"
-          ],
-          "current_event": {
-            "event_name": "Pending Acceptance Event",
-            "event_desc": "NA",
-            "event_start_time": "NA",
-            "event_end_time": "NA",
-            "event_location": [
-              0,
-              0
-            ],
-            "event_address": "NA"
-          },
-          "frequency": "once a week"
+          "event_address": "NA"
         },
-     {
-          "title": "Catchup #3",
-          "catchup_owner": "owner@email.com",
-          "accepted_users": [
-            "accepted_user@email.com"
+        "frequency": "once a week"
+      },
+      {
+        "title": "Catchup #3",
+        "catchup_owner": "owner@email.com",
+        "accepted_users": [
+          "accepted_user@email.com"
+        ],
+        "invited_users": [
+          "your@email.com"
+        ],
+        "current_event": {
+          "event_name": "Pending Acceptance Event",
+          "event_desc": "NA",
+          "event_start_time": "NA",
+          "event_end_time": "NA",
+          "event_location": [
+            0,
+            0
           ],
-          "invited_users": [
-            "your@email.com"
-          ],
-          "current_event": {
-            "event_name": "Pending Acceptance Event",
-            "event_desc": "NA",
-            "event_start_time": "NA",
-            "event_end_time": "NA",
-            "event_location": [
-              0,
-              0
-            ],
-            "event_address": "NA"
-          },
-          "frequency": "once a week"
-        }
-      
+          "event_address": "NA"
+        },
+        "frequency": "once a week"
+      }
     ]
   }
 }

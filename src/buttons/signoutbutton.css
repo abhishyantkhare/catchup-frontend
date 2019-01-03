@@ -1,0 +1,18 @@
+.button
+{
+  background: #3892FC;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 35px;
+  width: 120px;
+  cursor: pointer;
+}
+
+.text
+{
+  font-size: 20px;
+  font-family: "Open-Sans" sans-serif;
+  color: white;
+  margin-top: 5px;
+}
