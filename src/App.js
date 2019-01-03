@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './login.js';
-import Dashboard from './dashboard.js';
+import Dashboard from './dashboard/dashboard.js';
 import {Route, Switch} from 'react-router-dom'
 
 

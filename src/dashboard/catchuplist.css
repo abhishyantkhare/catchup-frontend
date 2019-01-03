@@ -14,17 +14,10 @@
   margin-top: 10px;
 }
 
-.create-button
+.create-button-container
 {
-  width: 100px;
-  height: 35px;
-  background: #045B9A;
-  border-radius: 20px;
   margin-left: 190px;
   align-self: flex-end;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
 }
 
 .title-container
@@ -34,10 +27,3 @@
   align-items: center
 }
 
-.create-text
-{
-  font-size: 21px;
-  font-family: 'Lato', sans-serif;
-  color: white;
-  margin-top:2px;
-}
