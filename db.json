@@ -2,8 +2,8 @@
   "new_user": {
     "email": "akhare97@berkeley.edu",
     "location": [
-      37.772854099999996,
-      -122.5004056
+      37.7728967,
+      -122.50048309999998
     ]
   },
   "get_catchups": {
@@ -91,5 +91,6 @@
     ],
     "owner": "your@email.com",
     "title": ""
-  }
+  },
+  "sign_out": {}
 }

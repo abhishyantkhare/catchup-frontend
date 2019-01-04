@@ -5,6 +5,7 @@ import "./dashboard.css"
 import { connect } from "react-redux"
 import SignoutButton from "../buttons/signoutbutton"
 import Cookies from "universal-cookie"
+import CatchupSettings from "./catchupsettings"
 
 
 const mapStateToProps = state => {
@@ -20,7 +21,9 @@ class ConnectedDashboard extends Component
   constructor (props){
     super(props)
     this.state = {
-      showCreate : false
+      showCreate : false,
+      showSettings: false,
+      currentCatchup: null
     }
 
   }
@@ -28,22 +31,44 @@ class ConnectedDashboard extends Component
   signout = () =>
   {
     cookies.remove("user_email");
-    this.props.history.push("/");
+    fetch(process.env.REACT_APP_BACKEND_URL + 'sign_out', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      this.props.history.push("/");
+    }).catch((error) => {
+      console.error(error);
+    });;
   }
 
   setShowCreate = () => {
     this.setState({
-      showCreate : true
+      showCreate : true,
+      showSettings: false,
+      currentCatchup: null
+    })
+  }
+
+  setShowSettings = (catchup) => {
+    this.setState({
+      showCreate: false,
+      showSettings: true,
+      currentCatchup: catchup
     })
   }
 
   render (){
-    console.log(this.props.userEmail);
     return(
       <div className="dashboard-container">
         <div className="catchuplist-container">
           <CatchupList
           createFunction = {this.setShowCreate}
+          viewFunction = {this.setShowSettings}
            />
         <div className="signoutbutton-container">
           <SignoutButton
@@ -52,7 +77,13 @@ class ConnectedDashboard extends Component
         </div>
         </div>
         <div className="catchupcreate-container">
-        {this.state.showCreate ? <CatchupCreate /> : null}
+        {this.state.showCreate ? 
+        <CatchupCreate /> : 
+        null}
+        {this.state.showSettings ? 
+        <CatchupSettings 
+        catchup={this.state.currentCatchup}/> :
+        null}
         </div>
       </div>
     )

@@ -1,0 +1,25 @@
+.settings-container
+{
+  display: flex
+}
+.settings-title
+{
+  font-size: 25px;
+  font-family: "Open-Sans" sans-serif;
+  color: black;
+  margin-left: 0px;
+  align-self: center;
+}
+
+.top-settings-container
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+}
+
+.edit-button
+{
+  margin-left: 100px;
+  align-self: center
+}

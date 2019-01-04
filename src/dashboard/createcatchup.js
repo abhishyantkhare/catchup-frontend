@@ -1,28 +1,13 @@
 import React, {Component} from 'react'
-import TextField from '@material-ui/core/TextField'
 import "./createcatchup.css"
 import CreateButton from '../buttons/createbutton'
 import AdditionButton from '../buttons/additionbutton'
+import InviteeTextField from './inviteetextfield'
+import TextField from '@material-ui/core/TextField'
+
 
 const user_email = "your@email.com";
-class InviteeTextField extends Component {
-  constructor (props)
-  {
-    super(props)
-   
-  }
 
-  render ()
-  {
-    return(
-      <TextField
-          label="Invitee Email Address"
-          fullWidth={true}
-          onChange={(e) => this.props.onChange(e, this.props.listKey)}
-       />  
-    )
-  }
-}
 
 class CreateCatchup extends Component
 {

@@ -48,15 +48,22 @@ class CatchupList extends Component
     })
   }
 
+  showView = (catchup) => {
+    this.setState({
+      showCreateButton: true
+    })
+    this.props.viewFunction(catchup);
+  }
+
 
 
   render() {
     var catchupViews = this.state.userCatchups.map((catchup) => 
     <div className="full-item-container">
        <CatchupListItem 
-      title={catchup.title}
       pending={catchup.invited_users.includes(user_email)}
-      catchup_id={catchup.catchup_id}
+      catchup={catchup}
+      viewFunction={this.showView}
       />
       <div className="gray-divider" />
     </div>
@@ -104,7 +111,7 @@ class CatchupListItem extends Component
       },
       body: JSON.stringify({
         email: user_email,
-        catchup_id: this.props.catchup_id
+        catchup_id: this.props.catchup.catchup_id
       })
     }).then((response) => response.json())
     .then((responseJson) => {
@@ -123,7 +130,7 @@ class CatchupListItem extends Component
       },
       body: JSON.stringify({
         email: user_email,
-        catchup_id: this.props.catchup_id
+        catchup_id: this.props.catchup.catchup_id
       })
     }).then((response) => response.json())
     .then((responseJson) => {
@@ -137,12 +144,13 @@ class CatchupListItem extends Component
     return(
         <div className="item-container">
           <div className="item-title">
-            {this.props.title}
+            {this.props.catchup.title}
           </div>
           <div className="view-button-container">
             <ClearButton 
             color="blue"
             text="View"
+            onClick={() => this.props.viewFunction(this.props.catchup)}
             />
           </div>
           {this.props.pending ?
