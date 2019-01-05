@@ -21,6 +21,7 @@ class CreateCatchup extends Component
           view:  <InviteeTextField
           onChange={this.setEmail}
           listKey={0}
+          label="Invitee Email Address"
           />,
           email: "",
           key: 0
@@ -53,6 +54,7 @@ class CreateCatchup extends Component
     inviteeViewsNew.push({view: <InviteeTextField 
                           onChange={this.setEmail}
                           listKey={this.state.inviteeViews.length}
+                          label="Invitee Email Address"
                         />,
                         email: "",
                         key: this.state.inviteeViews.length

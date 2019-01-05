@@ -54,11 +54,11 @@ class ConnectedDashboard extends Component
     })
   }
 
-  setShowSettings = (catchup) => {
+  setShowSettings = (set_catchup) => {
     this.setState({
       showCreate: false,
       showSettings: true,
-      currentCatchup: catchup
+      currentCatchup: set_catchup
     })
   }
 

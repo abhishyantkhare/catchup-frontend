@@ -19,8 +19,8 @@
         "current_event": {
           "event_name": "Cherry Picking",
           "event_desc": "Cherry picking is fun!",
-          "event_start_time": "5:00 PM PST",
-          "event_end_time": "7:00 PM PST",
+          "event_start_time": "2019-01-05T02:45:48-0800",
+          "event_end_time": "2019-01-05T03:47:12-0800",
           "event_location": [
             1,
             2
@@ -39,17 +39,7 @@
         "invited_users": [
           "invited_user@email.com"
         ],
-        "current_event": {
-          "event_name": "Pending Acceptance Event",
-          "event_desc": "NA",
-          "event_start_time": "NA",
-          "event_end_time": "NA",
-          "event_location": [
-            0,
-            0
-          ],
-          "event_address": "NA"
-        },
+        "current_event": null,
         "frequency": "once a week"
       },
       {
@@ -62,17 +52,7 @@
         "invited_users": [
           "your@email.com"
         ],
-        "current_event": {
-          "event_name": "Pending Acceptance Event",
-          "event_desc": "NA",
-          "event_start_time": "NA",
-          "event_end_time": "NA",
-          "event_location": [
-            0,
-            0
-          ],
-          "event_address": "NA"
-        },
+        "current_event": null,
         "frequency": "once a week"
       }
     ]
