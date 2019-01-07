@@ -108,7 +108,6 @@ class CatchupSettings extends Component
     this.setState({
       edit_clicked: false
     });
-    this.props.refreshDash();
   }).catch((error) => {
     console.error(error);
   });;
@@ -399,7 +398,7 @@ onLeaveClick = () => {
         }
        
       </div>
-      {this.state.edit_clicked ? 
+      {this.state.edit_clicked && this.state.catchup.invited_users.length === 0? 
       <div className="generate-button">
         <ClearButton
         color="dark-blue"
