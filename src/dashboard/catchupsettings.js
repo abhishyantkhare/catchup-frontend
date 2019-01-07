@@ -245,6 +245,26 @@ onGenerateClick = () => {
     console.error(error);
   });; 
 }
+
+onLeaveClick = () => {
+  fetch(process.env.REACT_APP_BACKEND_URL + 'leave_catchup', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      catchup: this.props.catchup,
+      user_email: user_email
+    })
+  }).then((response) => response.json())
+  .then((responseJson) => {
+    console.log(responseJson);
+    this.props.refreshDash();
+  }).catch((error) => {
+    console.error(error);
+  });;  
+}
  
 
  render() 
@@ -319,6 +339,7 @@ onGenerateClick = () => {
           <ClearButton
           text="Leave"
           color="red"
+          onClick={this.onLeaveClick}
           /> :
           null
         }

@@ -127,5 +127,22 @@
       2
     ],
     "event_address": "Cherry Farm, San Francisco, CA 94121"
+  },
+  "leave_catchup": {
+    "catchup": {
+      "catchup_id": 2,
+      "title": "Catchup #2",
+      "catchup_owner": "owner@email.com",
+      "accepted_users": [
+        "your@email.com"
+      ],
+      "invited_users": [
+        "invited_user@email.com"
+      ],
+      "current_event": null,
+      "frequency": "once a week",
+      "selected": true
+    },
+    "user_email": "your@email.com"
   }
 }
