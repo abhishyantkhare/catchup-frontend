@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField'
+import AdditionButton from '../buttons/additionbutton'
 import './inviteetextfield.css'
 
 
@@ -15,12 +16,23 @@ class InviteeTextField extends Component {
   {
     return(
       <div className="text-field-container">
+      {this.props.show_delete ? 
+        <div className="minus-button">
+          <AdditionButton
+          buttonType="minus"
+          onClick={() => this.props.deleteFunc(this.props.listKey)}
+          /> 
+        </div>
+        :
+        null
+        } 
       <div className="text-field">
           <TextField
               label={this.props.label}
               fullWidth={true}
               onChange={(e) => this.props.onChange(e, this.props.listKey)}
               value={this.props.text}
+              disabled={this.props.disabled}
           /> 
         </div>
         {this.props.display_status ?

@@ -20,7 +20,7 @@
 
 .edit-button
 {
-  margin-left: 250px;
+  margin-left: 200px;
   align-self: center
 }
 
@@ -30,6 +30,8 @@
   font-family: 'Open Sans' sans-serif;
   margin-top: 50px;
   text-transform: capitalize;   
+  display: flex;
+  flex-direction: row
 }
 
 .event
@@ -37,4 +39,26 @@
   font-size: 20px;
   font-family: 'Open Sans' sans-serif;
   margin-top: 20px
+}
+
+.update
+{
+  margin-bottom: 10px;
+}
+
+.plus-button-settings
+{
+  margin-top: 10px;
+  height: 25px;
+}
+
+.dropdown-arrow-settings
+{
+  margin-left: 5px;
+}
+
+.generate-button
+{
+  width: 250px;
+  margin-top: 10px
 }

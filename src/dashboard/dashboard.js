@@ -23,23 +23,51 @@ class ConnectedDashboard extends Component
     this.state = {
       showCreate : false,
       showSettings: false,
-      currentCatchup: null
+      currentCatchup: null,
+      userCatchups: []
     }
+    this.getUserCatchups();
 
+  }
+
+  getUserCatchups = () => {
+    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=user@email.com', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => response.json()).
+    then((responseJson) => {
+      console.log(responseJson);
+      this.setState(
+        {
+          userCatchups: responseJson['catchups'],
+          currentCatchup: null,
+          showSettings: false,
+          showCreate: false
+        }
+      )
+    }).catch((error) => {
+      console.error(error);
+    });;
   }
 
   signout = () =>
   {
-    cookies.remove("user_email");
+   
     fetch(process.env.REACT_APP_BACKEND_URL + 'sign_out', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify({user_email: cookies.get("user_email")})
+      ,
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
+      cookies.remove("user_email");
       this.props.history.push("/");
     }).catch((error) => {
       console.error(error);
@@ -69,6 +97,7 @@ class ConnectedDashboard extends Component
           <CatchupList
           createFunction = {this.setShowCreate}
           viewFunction = {this.setShowSettings}
+          userCatchups={this.state.userCatchups}
            />
         <div className="signoutbutton-container">
           <SignoutButton
@@ -82,7 +111,9 @@ class ConnectedDashboard extends Component
         null}
         {this.state.showSettings ? 
         <CatchupSettings 
-        catchup={this.state.currentCatchup}/> :
+        catchup={this.state.currentCatchup}
+        refreshDash={this.getUserCatchups}
+        /> :
         null}
         </div>
       </div>

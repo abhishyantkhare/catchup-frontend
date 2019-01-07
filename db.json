@@ -72,5 +72,60 @@
     "owner": "your@email.com",
     "title": ""
   },
-  "sign_out": {}
+  "sign_out": {},
+  "update_catchup": {
+    "catchup_id": 1,
+    "title": "Catchup #1",
+    "catchup_owner": "your@email.com",
+    "accepted_users": [
+      "accepted_user@email.com"
+    ],
+    "invited_users": [],
+    "current_event": {
+      "event_name": "Cherry Picking",
+      "event_desc": "Cherry picking is fun!",
+      "event_start_time": "2019-01-05T02:45:48-0800",
+      "event_end_time": "2019-01-05T03:47:12-0800",
+      "event_location": [
+        1,
+        2
+      ],
+      "event_address": "Cherry Farm, San Francisco, CA 94121"
+    },
+    "frequency": "once a week",
+    "selected": true
+  },
+  "delete_catchup": {
+    "catchup_id": 1,
+    "title": "Catchup #1",
+    "catchup_owner": "your@email.com",
+    "accepted_users": [
+      "accepted_user@email.com"
+    ],
+    "invited_users": [],
+    "current_event": {
+      "event_name": "Cherry Picking",
+      "event_desc": "Cherry picking is fun!",
+      "event_start_time": "2019-01-05T02:45:48-0800",
+      "event_end_time": "2019-01-05T03:47:12-0800",
+      "event_location": [
+        1,
+        2
+      ],
+      "event_address": "Cherry Farm, San Francisco, CA 94121"
+    },
+    "frequency": "once a week",
+    "selected": true
+  },
+  "generate_new_event": {
+    "event_name": "Cherry Picking",
+    "event_desc": "Cherry picking is fun!",
+    "event_start_time": "2019-01-05T02:45:48-0800",
+    "event_end_time": "2019-01-05T03:47:12-0800",
+    "event_location": [
+      1,
+      2
+    ],
+    "event_address": "Cherry Farm, San Francisco, CA 94121"
+  }
 }

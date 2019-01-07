@@ -8,6 +8,8 @@ class ClearButton extends Component
     super(props);
   }
 
+  
+
   render ()
   {
     let buttonClass = "clear-button ";
@@ -21,6 +23,16 @@ class ClearButton extends Component
     {
       buttonClass += "red-button";
       textClass += "red-text";
+    }
+    if (this.props.color === "dark-blue")
+    {
+      buttonClass += "dark-blue-button";
+      textClass += "dark-blue-text";
+    }
+    if (this.props.highlighted)
+    {
+      buttonClass = "highlighted-button";
+      textClass = "highlighted-text";
     }
     return(
       <div className={buttonClass}

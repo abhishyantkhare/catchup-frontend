@@ -17,3 +17,10 @@
 {
   width: 200px;
 }
+
+.minus-button
+{
+  margin-left: -35px;
+  height: 20px;
+  align-self: center
+}

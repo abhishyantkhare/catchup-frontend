@@ -11,34 +11,23 @@ const user_email = "your@email.com"
 class CatchupList extends Component
 {
 
-  getUserCatchups = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=user@email.com', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => response.json()).
-    then((responseJson) => {
-      console.log(responseJson);
-      this.setState(
-        {
-          userCatchups: responseJson['catchups']
-        }
-      )
-    }).catch((error) => {
-      console.error(error);
-    });;
-  }
+ 
 
   constructor(props)
   {
     super(props);
+    //props.userCatchups.forEach(function(catchup) {catchup.selected = false})
     this.state = {
       showCreateButton: true,
-      userCatchups: []
+      userCatchups: props.userCatchups
     };
-    this.getUserCatchups();
+  }
+
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState({
+      userCatchups: nextProps.userCatchups
+    })
   }
 
   showCreate = () => {
@@ -46,11 +35,33 @@ class CatchupList extends Component
     this.setState({
       showCreateButton: false
     })
+    var catchups_new = this.state.userCatchups;
+    for(var i = 0; i < catchups_new.length; i++)
+    {
+      catchups_new[i].selected = false;  
+    }
+    this.setState({
+      userCatchups: catchups_new
+    })
   }
 
   showView = (catchup) => {
     this.setState({
       showCreateButton: true
+    })
+    var catchups_new = this.state.userCatchups;
+    for(var i = 0; i < catchups_new.length; i++)
+    {
+      if(catchups_new[i].catchup_id === catchup.catchup_id)
+      {
+        catchups_new[i].selected = true; 
+      }
+      else{
+        catchups_new[i].selected = false;  
+      }
+    }
+    this.setState({
+      userCatchups: catchups_new
     })
     this.props.viewFunction(catchup);
   }
@@ -64,6 +75,7 @@ class CatchupList extends Component
       pending={catchup.invited_users.includes(user_email)}
       catchup={catchup}
       viewFunction={this.showView}
+      highlighted={catchup.selected}
       />
       <div className="gray-divider" />
     </div>
@@ -150,6 +162,7 @@ class CatchupListItem extends Component
             <ClearButton 
             color="blue"
             text="View"
+            highlighted={this.props.highlighted}
             onClick={() => this.props.viewFunction(this.props.catchup)}
             />
           </div>
