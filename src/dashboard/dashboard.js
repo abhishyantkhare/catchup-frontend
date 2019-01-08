@@ -64,11 +64,9 @@ class ConnectedDashboard extends Component
       },
       body: JSON.stringify({user_email: cookies.get("user_email")})
       ,
-    }).then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      cookies.remove("user_email");
-      this.props.history.push("/");
+    }).then((response) => {
+      cookies.remove('user_email');
+      this.props.history.push('/');
     }).catch((error) => {
       console.error(error);
     });;

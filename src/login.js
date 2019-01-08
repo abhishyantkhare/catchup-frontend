@@ -29,10 +29,9 @@ class Login extends Component {
     console.log(response);
     var profileObj = response['profileObj'];
     var userEmail = profileObj['email'];
-    console.log(process.env.REACT_APP_BACKEND_URL + 'new_user')
     var userLat = this.props.coords.latitude;
     var userLon = this.props.coords.longitude;
-    fetch(process.env.REACT_APP_BACKEND_URL + 'new_user', {
+    fetch(process.env.REACT_APP_BACKEND_URL + 'sign_in', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -40,12 +39,14 @@ class Login extends Component {
       },
       body: JSON.stringify({
         email: userEmail,
-        location: [userLat, userLon]
+        location: [userLon, userLat]
       })
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
-      cookies.set('user_email', userEmail)
+      const session_token = responseJson['session_token'];
+      cookies.set('user_email', userEmail);
+      cookies.set('session_token', session_token);
       this.props.history.push('/dashboard');
     }).catch((error) => {
       console.error(error);
