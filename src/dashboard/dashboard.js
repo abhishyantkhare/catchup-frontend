@@ -15,6 +15,8 @@ const mapStateToProps = state => {
 };
 
 const cookies = new Cookies();
+const user_email = cookies.get('user_email');
+const session_token = cookies.get('session_token');
 
 class ConnectedDashboard extends Component
 {
@@ -31,7 +33,8 @@ class ConnectedDashboard extends Component
   }
 
   getUserCatchups = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=user@email.com', {
+    console.log(session_token)
+    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=' + user_email + '&session_token=' + session_token, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
