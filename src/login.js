@@ -24,6 +24,23 @@ class Login extends Component {
     }
   }
 
+  setCookies = (user_email, session_token) => {
+    var cookiePromise = new Promise(function(resolve, reject)
+    {
+      cookies.set('user_email', user_email);
+      cookies.set('session_token', session_token);
+      if (cookies.get('session_token') !== undefined)
+      {
+        resolve('Cookies Set');
+      }
+      else{
+        reject('Failed to set cookies');
+      }
+    })
+
+    return cookiePromise;
+  }
+
 
   responseGoogle = (response) => {
     console.log(response);
@@ -45,9 +62,13 @@ class Login extends Component {
     .then((responseJson) => {
       console.log(responseJson);
       const session_token = responseJson['session_token'];
-      cookies.set('user_email', userEmail);
-      cookies.set('session_token', session_token);
-      this.props.history.push('/dashboard');
+      this.setCookies(userEmail, session_token).then((response) => 
+        {
+        console.log(cookies.get('session_token'));
+        this.props.setUserDataFunc(userEmail, session_token);
+        this.props.history.push('/dashboard')
+      }
+      ).catch(error => console.log(error))
     }).catch((error) => {
       console.error(error);
     });;
