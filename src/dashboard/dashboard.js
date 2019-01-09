@@ -62,7 +62,10 @@ class ConnectedDashboard extends Component
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({user_email: cookies.get("user_email")})
+      body: JSON.stringify({
+        user_email: this.props.user_email,
+        session_token: this.props.session_token
+      })
       ,
     }).then((response) => {
       cookies.remove('user_email');
