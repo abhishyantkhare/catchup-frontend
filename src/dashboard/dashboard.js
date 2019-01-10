@@ -20,18 +20,29 @@ class ConnectedDashboard extends Component
 {
   constructor (props){
     super(props)
+    let user_email = cookies.get('user_email')
+    if (user_email === undefined){
+      user_email = this.props.user_email;
+    }
+    let session_token = cookies.get('session_token');
+    if (session_token === undefined)
+    {
+      session_token = this.props.session_token;
+    }
     this.state = {
       showCreate : false,
       showSettings: false,
       currentCatchup: null,
-      userCatchups: []
+      userCatchups: [],
+      user_email: user_email,
+      session_token: session_token
     }
     this.getUserCatchups();
 
   }
 
   getUserCatchups = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=' + this.props.user_email + '&session_token=' + this.props.session_token, {
+    fetch(process.env.REACT_APP_BACKEND_URL + 'get_catchups?user_email=' + this.state.user_email + '&session_token=' + this.state.session_token, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -40,9 +51,10 @@ class ConnectedDashboard extends Component
     }).then((response) => response.json()).
     then((responseJson) => {
       console.log(responseJson);
+      let catchup_objs = responseJson['catchups'].map((catchup_str) => JSON.parse(catchup_str));
       this.setState(
         {
-          userCatchups: responseJson['catchups'],
+          userCatchups: catchup_objs,
           currentCatchup: null,
           showSettings: false,
           showCreate: false
@@ -63,8 +75,8 @@ class ConnectedDashboard extends Component
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user_email: this.props.user_email,
-        session_token: this.props.session_token
+        user_email: this.state.user_email,
+        session_token: this.state.session_token
       })
       ,
     }).then((response) => {
@@ -99,6 +111,8 @@ class ConnectedDashboard extends Component
           createFunction = {this.setShowCreate}
           viewFunction = {this.setShowSettings}
           userCatchups={this.state.userCatchups}
+          user_email={this.state.user_email}
+          session_token={this.state.session_token}
            />
         <div className="signoutbutton-container">
           <SignoutButton
@@ -108,12 +122,18 @@ class ConnectedDashboard extends Component
         </div>
         <div className="catchupcreate-container">
         {this.state.showCreate ? 
-        <CatchupCreate /> : 
+        <CatchupCreate 
+        user_email={this.state.user_email}
+        session_token={this.state.session_token}
+        refreshDash={this.getUserCatchups}
+        /> : 
         null}
         {this.state.showSettings ? 
         <CatchupSettings 
         catchup={this.state.currentCatchup}
         refreshDash={this.getUserCatchups}
+        user_email={this.state.user_email}
+        session_token={this.state.session_token}
         /> :
         null}
         </div>

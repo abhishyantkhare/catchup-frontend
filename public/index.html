@@ -1,6 +1,67 @@
 <!DOCTYPE html>
+
+
+<script type="text/javascript">
+  // Client ID and API key from the Developer Console
+  var CLIENT_ID = '1084268764447-5sfp5tffk618buq7rkg0spt3u3la37kp.apps.googleusercontent.com';
+  var API_KEY = 'AIzaSyC3croWUIWRfqVHqe6YHXJ1EzwLflHNf5Q';
+
+  // Array of API discovery doc URLs for APIs used by the quickstart
+  var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  var SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+
+
+
+  /**
+   *  On load, called to load the auth2 library and API client library.
+   */
+  function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+  }
+
+  /**
+   *  Initializes the API client library and sets up sign-in state
+   *  listeners.
+   */
+  function initClient() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES
+    }).then(function () {
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+      // Handle the initial sign-in state.
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    }, function(error) {
+      appendPre(JSON.stringify(error, null, 2));
+    });
+  }
+
+
+
+  /**
+   *  Sign out the user upon button click.
+   */
+  function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+  }
+
+
+</script>
+
 <html lang="en">
   <head>
+
+    <script src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta

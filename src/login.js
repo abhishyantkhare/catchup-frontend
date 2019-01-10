@@ -3,6 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import './login.css'
 import Cookies from 'universal-cookie'
 import {geolocated} from 'react-geolocated';
+import GoogleSignInButton from './buttons/googlesigninbutton'
 
 
 
@@ -24,6 +25,21 @@ class Login extends Component {
     }
   }
 
+
+
+  /**
+   *  Sign in the user upon button click.
+   */
+  handleAuthClick = (event) => {
+    window.gapi.auth2.getAuthInstance().signIn().then((google_user) =>
+    {
+      console.log(google_user);
+      this.responseGoogle(google_user);
+    });
+  }
+
+
+
   setCookies = (user_email, session_token) => {
     var cookiePromise = new Promise(function(resolve, reject)
     {
@@ -43,9 +59,7 @@ class Login extends Component {
 
 
   responseGoogle = (response) => {
-    console.log(response);
-    var profileObj = response['profileObj'];
-    var userEmail = profileObj['email'];
+    var userEmail = response.w3.U3;
     var userLat = this.props.coords.latitude;
     var userLon = this.props.coords.longitude;
     fetch(process.env.REACT_APP_BACKEND_URL + 'sign_in', {
@@ -86,12 +100,9 @@ class Login extends Component {
               Some description here
             </div>
             <div className="login-container">
-              <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_ID}
-                buttonText="Sign In With Google"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
-                />
+              <GoogleSignInButton
+              onClick={this.handleAuthClick}
+              />
             </div>
           </div>
         </header>
@@ -105,5 +116,5 @@ export default geolocated({
   positionOptions: {
     enableHighAccuracy: false,
   },
-  userDecisionTimeout: 5000,
+  userDecisionTimeout: 1000,
 })(Login);

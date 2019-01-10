@@ -6,7 +6,6 @@ import InviteeTextField from './inviteetextfield'
 import TextField from '@material-ui/core/TextField'
 
 
-const user_email = "your@email.com";
 
 
 class CreateCatchup extends Component
@@ -14,6 +13,7 @@ class CreateCatchup extends Component
 
   constructor(props) {
     super(props);
+    
     this.state = {
       catchupTitle: "",
       inviteeViews: [
@@ -88,13 +88,15 @@ class CreateCatchup extends Component
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        invitedUsers: inviteeEmails,
-        owner: user_email,
+        invited_list: inviteeEmails,
+        catchup_owner: this.props.user_email,
+        session_token: this.props.session_token,
         title: this.state.catchupTitle
       })
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
+      this.props.refreshDash();
     }).catch((error) => {
       console.error(error);
     });;

@@ -6,7 +6,6 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies();
 //const user_email = cookies.get('user_email')
-const user_email = "your@email.com"
 
 class CatchupList extends Component
 {
@@ -72,7 +71,7 @@ class CatchupList extends Component
     var catchupViews = this.state.userCatchups.map((catchup) => 
     <div className="full-item-container">
        <CatchupListItem 
-      pending={catchup.invited_users.includes(user_email)}
+      pending={catchup.invited_users.includes(this.props.user_email)}
       catchup={catchup}
       viewFunction={this.showView}
       highlighted={catchup.selected}
@@ -122,7 +121,7 @@ class CatchupListItem extends Component
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user_email,
+        email: this.props.user_email,
         catchup_id: this.props.catchup.catchup_id
       })
     }).then((response) => response.json())
@@ -141,7 +140,7 @@ class CatchupListItem extends Component
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: user_email,
+        email: this.props.user_email,
         catchup_id: this.props.catchup.catchup_id
       })
     }).then((response) => response.json())
@@ -156,7 +155,7 @@ class CatchupListItem extends Component
     return(
         <div className="item-container">
           <div className="item-title">
-            {this.props.catchup.title}
+            {this.props.catchup.catchup_title}
           </div>
           <div className="view-button-container">
             <ClearButton 

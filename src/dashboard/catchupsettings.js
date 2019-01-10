@@ -6,7 +6,6 @@ import AdditionButton from '../buttons/additionbutton'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
-const user_email = "your@email.com"
 
 class CatchupSettings extends Component
 {
@@ -254,7 +253,7 @@ onLeaveClick = () => {
     },
     body: JSON.stringify({
       catchup: this.props.catchup,
-      user_email: user_email
+      user_email: this.props.user_email
     })
   }).then((response) => response.json())
   .then((responseJson) => {
@@ -294,7 +293,7 @@ onLeaveClick = () => {
     onChange={this.onTextChange}
     />);
     var start_date;
-    if (this.state.catchup.current_event !== null)
+    if (this.state.catchup.current_event !== undefined)
     {
       start_date = new Date(this.state.catchup.current_event.event_start_time);
       var start_month = start_date.getMonth() + 1;
@@ -306,10 +305,10 @@ onLeaveClick = () => {
     <div className="settings-container">
       <div className="top-settings-container">
         <div className="settings-title">
-          {this.state.catchup.title}
+          {this.state.catchup.catchup_title}
         </div>
         <div className="edit-button">
-        {this.props.catchup.catchup_owner === user_email && !this.state.edit_clicked ?
+        {this.props.catchup.catchup_owner === this.props.user_email && !this.state.edit_clicked ?
           <ClearButton 
           text="Edit"
           color="blue"
@@ -317,7 +316,7 @@ onLeaveClick = () => {
           /> :
           null
         }
-        {this.props.catchup.catchup_owner === user_email && this.state.edit_clicked ?
+        {this.props.catchup.catchup_owner === this.props.user_email && this.state.edit_clicked ?
         <div>
           <div className="update">
             <ClearButton 
@@ -334,7 +333,7 @@ onLeaveClick = () => {
         </div> :
           null
         }
-        {this.props.catchup.accepted_users.includes(user_email) ?
+        {this.props.catchup.accepted_users.includes(this.props.user_email) ?
           <ClearButton
           text="Leave"
           color="red"
@@ -392,7 +391,7 @@ onLeaveClick = () => {
         }
       </div>
       <div className="event">
-        {this.state.catchup.current_event !== null ? 
+        {this.state.catchup.current_event !== undefined ? 
          "Next Event: " + this.state.catchup.current_event.event_name + " On " + start_month+ "/" +start_day:
          "Next Event: Pending Catchup Acceptances" 
         }
