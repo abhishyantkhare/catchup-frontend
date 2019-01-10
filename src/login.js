@@ -31,10 +31,10 @@ class Login extends Component {
    *  Sign in the user upon button click.
    */
   handleAuthClick = (event) => {
-    window.gapi.auth2.getAuthInstance().signIn().then((google_user) =>
+    window.gapi.auth2.getAuthInstance().grantOfflineAccess().then((code_obj) =>
     {
-      console.log(google_user);
-      this.responseGoogle(google_user);
+      let auth_code = code_obj['code']
+      this.responseGoogle(auth_code)
     });
   }
 
@@ -58,8 +58,7 @@ class Login extends Component {
   }
 
 
-  responseGoogle = (response) => {
-    var userEmail = response.w3.U3;
+  responseGoogle = (auth_code) => {
     var userLat = this.props.coords.latitude;
     var userLon = this.props.coords.longitude;
     fetch(process.env.REACT_APP_BACKEND_URL + 'sign_in', {
@@ -69,17 +68,18 @@ class Login extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: userEmail,
+        auth_code: auth_code,
         location: [userLon, userLat]
       })
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
       const session_token = responseJson['session_token'];
-      this.setCookies(userEmail, session_token).then((response) => 
+      const user_email = responseJson['user_email'];
+      this.setCookies(user_email, session_token).then((response) => 
         {
         console.log(cookies.get('session_token'));
-        this.props.setUserDataFunc(userEmail, session_token);
+        this.props.setUserDataFunc(user_email, session_token);
         this.props.history.push('/dashboard')
       }
       ).catch(error => console.log(error))
