@@ -75,6 +75,8 @@ class CatchupList extends Component
       catchup={catchup}
       viewFunction={this.showView}
       highlighted={catchup.selected}
+      user_email={this.props.user_email}
+      session_token={this.props.session_token}
       />
       <div className="gray-divider" />
     </div>
@@ -121,8 +123,9 @@ class CatchupListItem extends Component
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: this.props.user_email,
-        catchup_id: this.props.catchup.catchup_id
+        user_email: this.props.user_email,
+        catchup_id: this.props.catchup._id.$oid,
+        session_token: this.props.session_token
       })
     }).then((response) => response.json())
     .then((responseJson) => {

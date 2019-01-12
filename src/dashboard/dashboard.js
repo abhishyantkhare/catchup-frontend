@@ -50,8 +50,8 @@ class ConnectedDashboard extends Component
       }
     }).then((response) => response.json()).
     then((responseJson) => {
-      console.log(responseJson);
       let catchup_objs = responseJson['catchups'].map((catchup_str) => JSON.parse(catchup_str));
+      console.log(catchup_objs)
       this.setState(
         {
           userCatchups: catchup_objs,

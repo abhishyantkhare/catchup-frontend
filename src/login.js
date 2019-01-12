@@ -59,8 +59,14 @@ class Login extends Component {
 
 
   responseGoogle = (auth_code) => {
-    var userLat = this.props.coords.latitude;
-    var userLon = this.props.coords.longitude;
+    let userLat = -1;
+    let userLon = -1;
+    if (this.props.coords !== null)
+    {
+      userLat = this.props.coords.latitude;
+      userLon = this.props.coords.longitude;
+    }
+   
     fetch(process.env.REACT_APP_BACKEND_URL + 'sign_in', {
       method: 'POST',
       headers: {
