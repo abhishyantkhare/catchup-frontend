@@ -77,6 +77,7 @@ class CatchupList extends Component
       highlighted={catchup.selected}
       user_email={this.props.user_email}
       session_token={this.props.session_token}
+      refreshDash={this.props.refreshDash}
       />
       <div className="gray-divider" />
     </div>
@@ -130,6 +131,7 @@ class CatchupListItem extends Component
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
+      this.props.refreshDash();
     }).catch((error) => {
       console.error(error);
     });;

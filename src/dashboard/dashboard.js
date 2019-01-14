@@ -113,6 +113,7 @@ class ConnectedDashboard extends Component
           userCatchups={this.state.userCatchups}
           user_email={this.state.user_email}
           session_token={this.state.session_token}
+          refreshDash={this.getUserCatchups}
            />
         <div className="signoutbutton-container">
           <SignoutButton
