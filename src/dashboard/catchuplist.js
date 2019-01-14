@@ -51,7 +51,7 @@ class CatchupList extends Component
     var catchups_new = this.state.userCatchups;
     for(var i = 0; i < catchups_new.length; i++)
     {
-      if(catchups_new[i].catchup_id === catchup.catchup_id)
+      if(catchups_new[i]._id.$oid === catchup._id.$oid)
       {
         catchups_new[i].selected = true; 
       }
@@ -145,12 +145,14 @@ class CatchupListItem extends Component
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: this.props.user_email,
-        catchup_id: this.props.catchup.catchup_id
+        user_email: this.props.user_email,
+        catchup_id: this.props.catchup._id.$oid,
+        session_token: this.props.session_token
       })
     }).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
+      this.props.refreshDash()
     }).catch((error) => {
       console.error(error);
     });;

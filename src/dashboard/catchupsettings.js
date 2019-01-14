@@ -296,6 +296,7 @@ onLeaveClick = () => {
     if (this.state.catchup.current_event !== undefined)
     {
       start_date = new Date(this.state.catchup.current_event.event_start_time);
+      console.log(this.state.catchup.current_event.event_start_time)
       var start_month = start_date.getMonth() + 1;
       var start_month = start_month < 10 ? "0" + start_month : start_month;
       var start_day = start_date.getDate();
