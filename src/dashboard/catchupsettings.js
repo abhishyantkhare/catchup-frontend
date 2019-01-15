@@ -4,6 +4,7 @@ import ClearButton from '../buttons/clearbutton';
 import InviteeTextField from './inviteetextfield'
 import AdditionButton from '../buttons/additionbutton'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import TextField from '@material-ui/core/TextField'
 
 
 
@@ -81,25 +82,42 @@ class CatchupSettings extends Component
 
  setDelete = (del) => {
   var accepted_users_new = this.state.accepted_users;
-  for( var i  = 0; i < accepted_users_new.length; i++)
+  for( let i  = 0; i < accepted_users_new.length; i++)
   {
     var item = accepted_users_new[i];
     item.show_delete = del;
   }
+  var invited_users_new = this.state.invited_users;
+  for (let i = 0; i < invited_users_new.length; i++) {
+    var item = invited_users_new[i];
+    item.show_delete = del;
+  }
   this.setState({
-    accepted_users: accepted_users_new
+    accepted_users: accepted_users_new,
+    invited_users: invited_users_new
   })
   
  }
 
  updateButtonOnClick = () => {
+  let catchup_new = this.state.catchup;
+  catchup_new.accepted_users = this.state.accepted_users.map((item) => item.text);
+  catchup_new.invited_users = this.state.invited_users.map((item) => item.text);
+  this.setState({
+    catchup: catchup_new
+  })
+  console.log(this.state.catchup)
   fetch(process.env.REACT_APP_BACKEND_URL + 'update_catchup', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(this.state.catchup)
+    body: JSON.stringify({
+      'user_email': this.props.user_email,
+      'session_token': this.props.session_token,
+      'catchup': this.state.catchup
+    })
   }).then((response) => response.json())
   .then((responseJson) => {
     console.log(responseJson);
@@ -107,6 +125,7 @@ class CatchupSettings extends Component
     this.setState({
       edit_clicked: false
     });
+    this.props.refreshDash()
   }).catch((error) => {
     console.error(error);
   });;
@@ -149,7 +168,9 @@ class CatchupSettings extends Component
  }
 
  onTextChange = (e, listKey) => {
-  for(let i = 0; i < this.state.accepted_users.length; i++)
+  if (this.state.accepted_users.length > 0)
+  {
+   for(let i = 0; i < this.state.accepted_users.length; i++)
    {
     if (this.state.accepted_users[i].key === listKey)
     {
@@ -160,9 +181,13 @@ class CatchupSettings extends Component
         accepted_users: accepted_users_new
       })
     }
-   }
-    
-   for(let i = 0; i < this.state.invited_users.length; i++)
+   
+  }
+}
+  
+  if (this.state.invited_users.length > 0)
+  {
+  for(let i = 0; i < this.state.invited_users.length; i++)
    {
     if (this.state.invited_users[i].key === listKey)
     {
@@ -173,38 +198,48 @@ class CatchupSettings extends Component
         invited_users: invited_users_new
       })
     }
-   } 
+   }
+  }
+   
  }
 
  removeInvitee = (listKey) => {
    if(this.state.accepted_users.length > 0)
    {
+    let accepted_users_new = this.state.accepted_users;
     for(let i = 0; i < this.state.accepted_users.length; i++)
     {
       if (this.state.accepted_users[i].key === listKey)
       {
-        let accepted_users_new = this.state.accepted_users;
         delete accepted_users_new[i];
-        this.setState({
-          accepted_users: accepted_users_new
-        })
       }
     }
+    accepted_users_new = accepted_users_new.filter(function (el) {
+      return el != null;
+    });
+    this.setState({
+      accepted_users: accepted_users_new
+    })
+
    }
    
-   if(this.state.accepted_users.length > 0)
+   if(this.state.invited_users.length > 0)
    {
+    let invited_users_new = this.state.invited_users;
     for(let i = 0; i < this.state.invited_users.length; i++)
     {
       if (this.state.invited_users[i].key === listKey)
       {
-        let invited_users_new = this.state.invited_users;
         delete invited_users_new[i];
-        this.setState({
-          invited_users: invited_users_new
-        })
       }
     }
+    invited_users_new = invited_users_new.filter(function (el) {
+      return el != null;
+    });
+    this.setState({
+      invited_users: invited_users_new
+    })
+    
    }
    
  }
@@ -263,6 +298,14 @@ onLeaveClick = () => {
     console.error(error);
   });;  
 }
+
+setTitle = (e) => {
+  let catchup_new = this.state.catchup;
+  catchup_new.catchup_title = e.target.value;
+  this.setState({
+    catchup: catchup_new
+  })
+}
  
 
  render() 
@@ -305,8 +348,16 @@ onLeaveClick = () => {
     return(
     <div className="settings-container">
       <div className="top-settings-container">
-        <div className="settings-title">
-          {this.state.catchup.catchup_title}
+        <div className="text-field-title">
+          {this.state.edit_clicked ? 
+          <TextField 
+          fullWidth={true}
+          value={this.state.catchup.catchup_title}
+          onChange={(e) => this.setTitle(e)}
+          />
+          :
+          this.state.catchup.catchup_title
+          }
         </div>
         <div className="edit-button">
         {this.props.catchup.catchup_owner === this.props.user_email && !this.state.edit_clicked ?
