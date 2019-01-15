@@ -138,7 +138,11 @@ class CatchupSettings extends Component
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(this.state.catchup)
+    body: JSON.stringify({
+      'user_email': this.props.user_email,
+      'session_token': this.props.session_token,
+      'catchup': this.state.catchup
+    })
   }).then((response) => response.json())
   .then((responseJson) => {
     console.log(responseJson);
@@ -449,17 +453,6 @@ setTitle = (e) => {
         }
        
       </div>
-      {this.state.edit_clicked && this.state.catchup.invited_users.length === 0? 
-      <div className="generate-button">
-        <ClearButton
-        color="dark-blue"
-        highlighted={false}
-        text="Generate New Event"
-        onClick={this.onGenerateClick}
-        /> 
-      </div>:
-      null
-      }
     </div>
     );
  } 
