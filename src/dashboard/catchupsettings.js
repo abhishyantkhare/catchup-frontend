@@ -291,8 +291,9 @@ onLeaveClick = () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      catchup: this.props.catchup,
-      user_email: this.props.user_email
+      'user_email': this.props.user_email,
+      'session_token': this.props.session_token,
+      'catchup': this.state.catchup
     })
   }).then((response) => response.json())
   .then((responseJson) => {
