@@ -108,6 +108,7 @@ class ConnectedDashboard extends Component
       <div className="dashboard-container">
         <div className="catchuplist-container">
           <CatchupList
+          showCreateButton = {!this.state.showCreate}
           createFunction = {this.setShowCreate}
           viewFunction = {this.setShowSettings}
           userCatchups={this.state.userCatchups}

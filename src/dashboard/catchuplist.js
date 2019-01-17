@@ -17,7 +17,7 @@ class CatchupList extends Component
     super(props);
     //props.userCatchups.forEach(function(catchup) {catchup.selected = false})
     this.state = {
-      showCreateButton: true,
+      showCreateButton: props.showCreateButton,
       userCatchups: props.userCatchups
     };
   }
@@ -25,15 +25,13 @@ class CatchupList extends Component
   componentWillReceiveProps(nextProps)
   {
     this.setState({
-      userCatchups: nextProps.userCatchups
+      userCatchups: nextProps.userCatchups,
+      showCreateButton: nextProps.showCreateButton
     })
   }
 
   showCreate = () => {
     this.props.createFunction();
-    this.setState({
-      showCreateButton: false
-    })
     var catchups_new = this.state.userCatchups;
     for(var i = 0; i < catchups_new.length; i++)
     {
